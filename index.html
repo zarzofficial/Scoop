@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="إسكوب - Scoop | أشهى وألذ الآيس كريم والحلويات">
+    <title>إسكوب - Scoop | Ice Cream</title>
+
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <img src="scoop-logo.png" style="height:50px; image-rendering: high-quality;" alt="Scoop Logo">
+                <span style="font-family: var(--font-ar); line-height: 1; font-weight: 800;">إسكوب <span class="en" style="font-weight: 600; color: var(--text-dark); font-size: 1.2rem; margin-right: 5px;">Scoop</span></span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#hero">الرئيسية</a>
+                <a href="#about">قصتنا</a>
+                <a href="#showcase">جودتنا</a>
+                <a href="#menu">القائمة</a>
+                <a href="#contact">تواصل معنا</a>
+            </nav>
+
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <div class="mobile-menu-drawer" id="mobileMenuDrawer">
+            <span class="close-btn" id="closeBtn"><i class="fa-solid fa-xmark"></i></span>
+            <nav class="mobile-links">
+                <a href="#hero">الرئيسية</a>
+                <a href="#about">قصتنا</a>
+                <a href="#showcase">جودتنا</a>
+                <a href="#menu">القائمة</a>
+                <a href="#contact">تواصل معنا</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Modern Split Section -->
+    <section class="hero" id="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title"><img src="scoop-logo.png" style="height:140px; vertical-align:middle; margin-bottom:20px; image-rendering: high-quality;" alt="Scoop Logo"><br>إسكوب <br><span>SCOOP</span></h1>
+                <p class="hero-subtitle">كل سكوبة حكاية | Every Scoop Tells a Story</p>
+                <a href="#menu" class="btn btn-primary">اكتشف القائمة <i class="fa-solid fa-arrow-left"></i></a>
+            </div>
+            <div class="hero-image">
+                <img src="hero_ice_cream.png" alt="Scoop Premium Ice Cream">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about section-padding" id="about">
+        <div class="container about-container">
+            <div class="about-text">
+                <span class="highlight">About Us</span>
+                <h2 class="section-title">شغفنا في كل ملعقة</h2>
+                <p>مرحباً بكم في <strong>إسكوب - Scoop</strong>، ي الخاصة للاستمتاع بألذ النكهات والحلويات. نحن نقدم تجربة فريدة تجمع بين الجودة العالية والمذاق الذي لا يُقاوم.</p>
+                <p>في إسكوب، نختار أفضل المكونات الطبيعية لنصنع لكم لحظات من السعادة تُنعشكم في كل الأوقات.</p>
+                <div class="about-features">
+                    <div class="feature"><i class="fa-solid fa-leaf"></i> <span>مكونات طبيعية طازجة</span></div>
+                    <div class="feature"><i class="fa-solid fa-heart"></i> <span>وصفات مصنوعة بحب</span></div>
+                    <div class="feature"><i class="fa-solid fa-star"></i> <span>جودة لا تُضاهى وتجربة فريدة</span></div>
+                </div>
+            </div>
+            <div class="about-image">
+                <video src="about_ice_cream.mp4" autoplay loop muted playsinline aria-label="Pouring Strawberry Syrup"></video>
+                <div class="experience-badge">
+                    <div class="badge-icon"><i class="fa-solid fa-ice-cream"></i></div>
+                    <div class="badge-content">
+                        <span class="text">السعادة في كل سكوب</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showcase Section -->
+    <section class="showcase section-padding" id="showcase">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="highlight">Our Quality</span>
+                <h2 class="section-title">جودتنا تتحدث</h2>
+                <p class="section-desc">شاهد تشكيلتنا الرائعة من الآيس كريم والحلويات المميزة</p>
+            </div>
+
+            <div class="showcase-grid">
+                <div class="showcase-item">
+                    <img src="quality-food-5.jpg" alt="Ice Cream Quality 1">
+                </div>
+                <div class="showcase-item">
+                    <img src="quality-food-6.jpg" alt="Ice Cream Quality 2">
+                </div>
+                <div class="showcase-item">
+                    <img src="quality-food-7.jpg" alt="Ice Cream Quality 3">
+                </div>
+                <div class="showcase-item">
+                    <img src="quality-food-8.jpg" alt="Ice Cream Quality 4">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu section-padding" id="menu">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="highlight">Our Menu</span>
+                <h2 class="section-title">قائمة السعادة</h2>
+                <p class="section-desc">كل سكوبة حكاية | Every Scoop Tells a Story</p>
+            </div>
+
+            <!-- Category Nav -->
+            <div class="menu-categories" id="menuCategories">
+                <button class="category-btn active" data-filter="classic"><i class="fa-solid fa-ice-cream"></i> النكهات الكلاسيكية</button>
+                <button class="category-btn" data-filter="fruits"><i class="fa-solid fa-lemon"></i> تشكيلة الفواكة</button>
+                <button class="category-btn" data-filter="chocolate"><i class="fa-solid fa-cookie-bite"></i> الشوكولاتة</button>
+                <button class="category-btn" data-filter="premium"><i class="fa-solid fa-star"></i> النكهات المميزة</button>
+                <button class="category-btn" data-filter="desserts"><i class="fa-solid fa-cake-candles"></i> حلويات</button>
+                <button class="category-btn" data-filter="juices"><i class="fa-solid fa-glass-water"></i> عصائر</button>
+                <button class="category-btn" data-filter="family"><i class="fa-solid fa-boxes-stacked"></i> عروض العائلة</button>
+                <button class="category-btn" data-filter="toppings"><i class="fa-solid fa-plus"></i> الإضافات</button>
+            </div>
+
+            <div class="menu-grid">
+                <!-- Category: Classic Flavors -->
+                <div class="menu-category-section active" id="classic">
+                    <div class="items-grid">
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">فانيليا <span class="en">Vanilla</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">قهوة <span class="en">Coffee</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">قرفة <span class="en">Cinnamon</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">كراميل <span class="en">Caramel</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">بندق <span class="en">Hazelnut</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">كوكيز <span class="en">Cookies</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">تشيزكيك <span class="en">Cheesecake</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                    </div>
+                </div>
+
+                <!-- Category: Fruits Collection -->
+                <div class="menu-category-section hidden" id="fruits">
+                    <div class="items-grid">
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">فراولة <span class="en">Strawberry</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">مانجو <span class="en">Mango</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">موز <span class="en">Banana</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">جوافة <span class="en">Guava</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">توت <span class="en">Berry</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">خوخ <span class="en">Peach</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">ليمون <span class="en">Lemon</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">برتقال <span class="en">Orange</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">أناناس <span class="en">Pineapple</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">بطيخ <span class="en">Watermelon</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                    </div>
+                </div>
+
+                <!-- Category: Chocolate Collection -->
+                <div class="menu-category-section hidden" id="chocolate">
+                    <div class="items-grid">
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">شوكولاتة كلاسيك <span class="en">Classic Chocolate</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">دارك شوكولاتة <span class="en">Dark Chocolate</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">شوكولاتة بندق <span class="en">Hazelnut Chocolate</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">شوكولاتة أوريو <span class="en">Oreo Chocolate</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">شوكولاتة لوتس <span class="en">Lotus Chocolate</span></h4><span class="item-price">1,500 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                    </div>
+                </div>
+
+                <!-- Category: Premium Flavors -->
+                <div class="menu-category-section hidden" id="premium">
+                    <div class="items-grid">
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">فستق <span class="en">Pistachio</span></h4><span class="item-price">2,000 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">لوتس <span class="en">Lotus</span></h4><span class="item-price">2,000 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">أوريو <span class="en">Oreo</span></h4><span class="item-price">2,000 <span class="scoop-badge">/ سكوب</span></span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                    </div>
+                </div>
+
+                <!-- Category: Desserts -->
+                <div class="menu-category-section hidden" id="desserts">
+                    <div class="items-grid">
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">بسبوسة مكس - 1 كيلو <span class="en">Mixed Basbousa</span></h4><span class="item-price">10,000</span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">بسبوسة - 1 كيلو <span class="en">Basbousa</span></h4><span class="item-price">12,000</span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                    </div>
+                </div>
+
+                <!-- Category: Juices -->
+                <div class="menu-category-section hidden" id="juices">
+                    <div class="items-grid">
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">فراولة <span class="en">Strawberry</span></h4><span class="item-price">5,000</span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">مانجو <span class="en">Mango</span></h4><span class="item-price">5,000</span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                    </div>
+                </div>
+
+                <!-- Category: Family Packs -->
+                <div class="menu-category-section hidden" id="family">
+                    <div class="items-grid">
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">فانيليا + شوكولاتة <span class="en">Vanilla + Chocolate</span></h4><span class="item-price">22,000</span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">فانيليا + فراولة <span class="en">Vanilla + Strawberry</span></h4><span class="item-price">22,000</span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">شوكولاتة + أوريو <span class="en">Chocolate + Oreo</span></h4><span class="item-price">25,000</span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                    </div>
+                </div>
+
+                <!-- Category: Toppings & Sauces -->
+                <div class="menu-category-section hidden" id="toppings">
+                    <div class="items-grid">
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">صوص شوكولاتة <span class="en">Chocolate Sauce</span></h4><span class="item-price">500</span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">صوص فراولة <span class="en">Strawberry Sauce</span></h4><span class="item-price">500</span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">صوص كراميل <span class="en">Caramel Sauce</span></h4><span class="item-price">500</span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">صوص لوتس <span class="en">Lotus Sauce</span></h4><span class="item-price">500</span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">صوص بيستاشيو <span class="en">Pistachio Sauce</span></h4><span class="item-price">500</span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">مكسرات <span class="en">Mixed Nuts</span></h4><span class="item-price">500</span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">بسكويت لوتس <span class="en">Lotus Biscuit</span></h4><span class="item-price">500</span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>
+                        <div class="menu-item card"><div class="item-header"><h4 class="item-title">بسكويت أوريو <span class="en">Oreo Biscuit</span></h4><span class="item-price">500</span></div><div class="add-to-cart-wrapper"><button class="add-to-cart-btn"><i class="fa-solid fa-cart-plus"></i> إضافة</button></div></div>عالكم                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact section-padding" id="contact">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="highlight">Contact Us</span>
+                <h2 class="section-title">نبقى على تواصل</h2>
+                <p class="section-desc">نحن دائماً في خدمتك، تواصل معنا لطلبات التوصيل أو الاستفسارات</p>
+            </div>
+
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <h3>موقعنا <span class="en" style="display:block;">Location</span></h3>
+                    <p><a href="https://maps.app.goo.gl/rv6LW36smbZKNtjY6" target="_blank" class="text-primary" style="font-weight:700;">شندي<br><span class="en">Shendi</span></a></p>
+                    <p style="margin-top: 15px; font-size: 0.95rem;">حي الزهور مربع 12<br>تقاطع صيدلية الريان</p>
+                </div>
+
+                <div class="contact-card">
+                    <div class="icon"><i class="fa-solid fa-phone"></i></div>
+                    <h3>أرقام الهواتف <span class="en" style="display:block;">Phones</span></h3>
+                    <div style="font-family: var(--font-ar); margin-bottom: 5px; color: var(--text-dark); font-weight:700;">للطلب والاستفسار:</div>
+                    <a href="tel:0918952269" dir="ltr" class="text-primary en">0918952269</a><br>
+                    <a href="tel:0112481531" dir="ltr" class="text-primary en">0112481531</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="icon"><i class="fa-brands fa-whatsapp"></i></div>
+                    <h3>واتساب <span class="en" style="display:block;">WhatsApp</span></h3>
+                    <div style="font-family: var(--font-ar); margin-bottom: 5px; color: var(--text-dark); font-weight:700;">تواصل معنا:</div>
+                    <a href="https://wa.me/249998736401" target="_blank" dir="ltr" class="text-primary en">0998736401</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="icon"><i class="fa-solid fa-envelope"></i></div>
+                    <h3>البريد الإلكتروني <span class="en" style="display:block;">Email</span></h3>
+                    <div style="font-family: var(--font-ar); margin-bottom: 5px; color: var(--text-dark); font-weight:700;">راسلنا:</div>
+                    <a href="mailto:sudan7700usa@gmail.com" class="text-primary en" style="font-size: 0.9rem;">sudan7700<br>usa@gmail.com</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="brand">
+                    <h2><img src="scoop-logo.png" style="height:70px; vertical-align:middle; margin-left:15px; image-rendering: high-quality;" alt="Scoop Logo">إسكوب - Scoop</h2>
+                    <p>المذاق الرائع للآيس كريم والحلويات يومياً</p>
+                </div>
+                <div class="social-links">
+                    <a href="https://web.facebook.com/profile.php?id=61554187456941" target="_blank" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://wa.me/249998736401" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="site-name">إسكوب - Scoop</p>
+                <p class="copyright">&copy; 2026 جميع الحقوق محفوظة. <span class="en">All Rights Reserved</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Extras Modal -->
+    <div class="modal-overlay" id="extrasModalOverlay"></div>
+    <div class="extras-modal" id="extrasModal">
+        <div class="modal-header">
+            <h3 style="margin:0;font-size:1.3rem;color:var(--text-dark);">تخصيص الطلب <span class="en text-primary">Customize</span></h3>
+            <button class="close-modal" id="closeExtrasBtn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <h4 id="modalItemName" style="color:var(--text-dark);font-size:1.2rem;margin-bottom:5px;">كلاسيك</h4>
+            <p class="modal-subtitle">اختر الإضافات التي تفضلها (500 ج.س لكل إضافة):</p>
+            <div class="extras-options">
+                <label class="extra-option">
+                    <input type="checkbox" value="صوص شوكولاتة">
+                    <span class="custom-checkbox"></span>
+                    <span style="color:var(--text-dark);font-weight:600;">صوص شوكولاتة <span class="en text-primary">Choco (+500)</span></span>
+                </label>
+                <label class="extra-option">
+                    <input type="checkbox" value="مكسرات">
+                    <span class="custom-checkbox"></span>
+                    <span style="color:var(--text-dark);font-weight:600;">مكسرات <span class="en text-primary">Nuts (+500)</span></span>
+                </label>
+                <label class="extra-option">
+                    <input type="checkbox" value="صوص كراميل">
+                    <span class="custom-checkbox"></span>
+                    <span style="color:var(--text-dark);font-weight:600;">صوص كراميل <span class="en text-primary">Caramel (+500)</span></span>
+                </label>
+                <label class="extra-option">
+                    <input type="checkbox" value="صوص لوتس">
+                    <span class="custom-checkbox"></span>
+                    <span style="color:var(--text-dark);font-weight:600;">صوص لوتس <span class="en text-primary">Lotus (+500)</span></span>
+                </label>
+                <label class="extra-option">
+                    <input type="checkbox" value="بسكويت أوريو">
+                    <span class="custom-checkbox"></span>
+                    <span style="color:var(--text-dark);font-weight:600;">بسكويت أوريو <span class="en text-primary">Oreo (+500)</span></span>
+                </label>
+            </div>
+        </div>
+        <div style="padding:25px;border-top:1px solid var(--bg-surface);background:var(--bg-main);">
+            <button class="btn btn-primary" id="confirmExtrasBtn" style="width:100%;justify-content:center;">تأكيد للحصول عليه <i class="fa-solid fa-check"></i></button>
+        </div>
+    </div>
+
+    <!-- Cart -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3><i class="fa-solid fa-cart-shopping text-primary"></i> سلة الطلبات</h3>
+            <button class="close-cart" id="closeCartBtn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-items" id="cartItemsContainer">
+            <div class="empty-cart-msg">السلة فارغة</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span style="color:var(--text-dark);">الإجمالي:</span>
+                <span class="total-price" id="cartTotalPrice">0 <span style="font-size:0.8rem;">SD</span></span>
+            </div>
+            <textarea id="orderDescription" class="order-description" placeholder="ضع أي ملاحظات عن طلبك أو عنوان التوصيل..."></textarea>
+            <button class="btn checkout-btn" id="checkoutBtn"><i class="fa-brands fa-whatsapp"></i> إتمام الطلب الآن</button>
+        </div>
+    </div>
+
+    <button class="floating-cart-btn" id="floatingCartBtn">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
