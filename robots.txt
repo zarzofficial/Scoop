@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zarzofficial.github.io/Scoop/sitemap.xml
