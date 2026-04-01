@@ -97,8 +97,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* ====== Cart System ====== */
-    let cart = [];
+    let cart = JSON.parse(localStorage.getItem('scoopCart')) || [];
     let currentPendingItem = { name: '', price: 0 };
+    
+    // Initialize UI on load if cart has items
+    setTimeout(updateCartUI, 100);
     
     // Add to Cart Logic for Menu Cards
     const cards = document.querySelectorAll('.card');
@@ -211,6 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             cart.push({ name, price, qty: 1 });
         }
+        localStorage.setItem('scoopCart', JSON.stringify(cart));
         updateCartUI();
         
         // Show feedback animation on button
@@ -228,6 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (item.qty <= 0) {
                 cart = cart.filter(i => i.name !== name);
             }
+            localStorage.setItem('scoopCart', JSON.stringify(cart));
             updateCartUI();
         }
     }
@@ -235,6 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Remove Item
     function removeItem(name) {
         cart = cart.filter(item => item.name !== name);
+        localStorage.setItem('scoopCart', JSON.stringify(cart));
         updateCartUI();
     }
 
@@ -246,10 +252,13 @@ document.addEventListener('DOMContentLoaded', () => {
         cartItemsContainer.innerHTML = '';
         let total = 0;
         let totalItems = 0;
+        const cartFooter = document.getElementById('cartFooter');
 
         if (cart.length === 0) {
             cartItemsContainer.innerHTML = '<div class="empty-cart-msg">السلة فارغة</div>';
+            if (cartFooter) cartFooter.style.display = 'none';
         } else {
+            if (cartFooter) cartFooter.style.display = 'block';
             cart.forEach(item => {
                 total += item.price * item.qty;
                 totalItems += item.qty;
@@ -281,32 +290,278 @@ document.addEventListener('DOMContentLoaded', () => {
         cartBadge.textContent = totalItems;
     }
 
+    function buildOrderDetails() {
+        let detailsText = '';
+        let total = 0;
+        cart.forEach((item, index) => {
+            detailsText += `${index + 1}. ${item.name} - ${item.qty}x (السعر: ${item.price * item.qty} SD)\n`;
+            total += item.price * item.qty;
+        });
+        detailsText += `\nالإجمالي: ${total} SD`;
+
+        const orderDesc = document.getElementById('orderDescription');
+        if (orderDesc && orderDesc.value.trim() !== '') {
+            detailsText += `\nالموقع / الوصف: ${orderDesc.value.trim()}`;
+        }
+        return { detailsText, total };
+    }
+
     // Checkout to WhatsApp
     checkoutBtn.addEventListener('click', () => {
         if (cart.length === 0) {
             alert('السلة فارغة! يرجى إضافة بعض الطلبات أولاً.');
             return;
         }
-
-        let message = 'مرحباً إسكوب - Scoop، أود طلب الآتي:%0A%0A';
-        let total = 0;
         
-        cart.forEach((item, index) => {
-            message += `${index + 1}. ${item.name} - ${item.qty}x (%0A   السعر: ${item.price * item.qty} SD)%0A`;
-            total += item.price * item.qty;
-        });
+        let name = document.getElementById('orderName').value.trim();
+        let phone = document.getElementById('orderPhone').value.trim();
+        let desc = document.getElementById('orderDescription').value.trim();
 
-        message += `%0A%0Aالإجمالي: ${total} SD`;
-
-        const orderDesc = document.getElementById('orderDescription');
-        if (orderDesc && orderDesc.value.trim() !== '') {
-            message += `%0A%0Aالموقع / الوصف: ${orderDesc.value.trim()}`;
+        if (!name || !phone || !desc) {
+            alert('يرجى تعبئة كافة الحقول (الاسم، رقم الهاتف، والوصف/العنوان) لإتمام الطلب.');
+            return;
         }
 
-        // Redirect to WhatsApp
+        const { detailsText, total } = buildOrderDetails();
+        let message = `مرحباً إسكوب - Scoop، أود طلب الآتي:\n\nالاسم: ${name}\nرقم الهاتف: ${phone}\n\n${detailsText}`;
+
         const waNumber = '249998736401';
-        window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
+        window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`, '_blank');
+        
+        // Save to orders history
+        let orders = JSON.parse(localStorage.getItem('scoopOrders')) || [];
+        orders.push({ date: new Date().toISOString(), items: [...cart], total: total, method: 'واتساب' });
+        localStorage.setItem('scoopOrders', JSON.stringify(orders));
+
+        cart = [];
+        localStorage.setItem('scoopCart', JSON.stringify(cart));
+        updateCartUI();
+        document.getElementById('orderName').value = '';
+        document.getElementById('orderPhone').value = '';
+        document.getElementById('orderDescription').value = '';
+        closeCart();
     });
 
-});
+    // Checkout to Website (Payment Gateway)
+    const websiteCheckoutBtn = document.getElementById('websiteCheckoutBtn');
+    const paymentModalOverlay = document.getElementById('paymentModalOverlay');
+    const paymentModal = document.getElementById('paymentModal');
+    const closePaymentBtn = document.getElementById('closePaymentBtn');
+    const paymentOptions = document.querySelectorAll('input[name="paymentOption"]');
+    const bankakDetails = document.getElementById('bankakDetails');
+    const bankakReceipt = document.getElementById('bankakReceipt');
+    const confirmPaymentBtn = document.getElementById('confirmPaymentBtn');
 
+    function openPaymentModal() {
+        paymentModalOverlay.classList.add('active');
+        paymentModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closePaymentModal() {
+        paymentModalOverlay.classList.remove('active');
+        paymentModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    if (closePaymentBtn) closePaymentBtn.addEventListener('click', closePaymentModal);
+    if (paymentModalOverlay) paymentModalOverlay.addEventListener('click', closePaymentModal);
+
+    // Toggle Bankak Details
+    paymentOptions.forEach(option => {
+        option.addEventListener('change', (e) => {
+            if (e.target.value === 'bankak') {
+                bankakDetails.style.display = 'block';
+            } else {
+                bankakDetails.style.display = 'none';
+            }
+        });
+    });
+
+    if (websiteCheckoutBtn) {
+        websiteCheckoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('السلة فارغة!');
+                return;
+            }
+
+            let name = document.getElementById('orderName').value.trim();
+            let phone = document.getElementById('orderPhone').value.trim();
+            let desc = document.getElementById('orderDescription').value.trim();
+
+            if (!name || !phone || !desc) {
+                alert('يرجى تعبئة كافة الحقول (الاسم، رقم الهاتف، والوصف/العنوان) لإتمام الطلب.');
+                return;
+            }
+            
+            // Validate success, proceed to payment
+            openPaymentModal();
+        });
+    }
+
+    if (confirmPaymentBtn) {
+        confirmPaymentBtn.addEventListener('click', async () => {
+            let name = document.getElementById('orderName').value.trim();
+            let phone = document.getElementById('orderPhone').value.trim();
+            let selectedOption = document.querySelector('input[name="paymentOption"]:checked').value;
+            let paymentStr = '';
+            let uiPaymentMethod = '';
+
+            if (selectedOption === 'bankak') {
+                let receipt = bankakReceipt.value.trim();
+                if (receipt.length !== 4) {
+                    alert('الرجاء إدخال آخر 4 أرقام من معاملة بنكك بشكل صحيح للتأكيد.');
+                    return;
+                }
+                paymentStr = `\nطريقة الدفع: تحويل بنكك (آخر 4 أرقام: ${receipt}) - مدفوع`;
+                uiPaymentMethod = 'الموقع (تحويل بنكك)';
+            } else {
+                paymentStr = `\nطريقة الدفع: كاش (عند الاستلام)`;
+                uiPaymentMethod = 'الموقع (الدفع كاش)';
+            }
+
+            confirmPaymentBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري الإرسال...';
+            confirmPaymentBtn.disabled = true;
+
+            const { detailsText, total } = buildOrderDetails();
+            let finalDetails = detailsText + '\n' + paymentStr;
+
+            try {
+                // إرسال الطلب بتنسيق نصي صريح لضمان استلامه في جوجل سكريبت بدون مشاكل CORS
+                await fetch("https://script.google.com/macros/s/AKfycbzx3J2Wct7OCXSWM0ZGo0GlgmPs0ZaUncCTuzq9CFNsp6eoVMToqMiRlR6iBkGyb7Qo/exec", {
+                    method: "POST",
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        phone: phone,
+                        product: finalDetails
+                    })
+                });
+
+                alert("تم إرسال الطلب بنجاح 🔥 سيتم التواصل معك قريباً!");
+                
+                // Save to orders history
+                let orders = JSON.parse(localStorage.getItem('scoopOrders')) || [];
+                orders.push({ date: new Date().toISOString(), items: [...cart], total: total, method: uiPaymentMethod });
+                localStorage.setItem('scoopOrders', JSON.stringify(orders));
+
+                // Clear state
+                cart = [];
+                localStorage.setItem('scoopCart', JSON.stringify(cart));
+                updateCartUI();
+                document.getElementById('orderName').value = '';
+                document.getElementById('orderPhone').value = '';
+                document.getElementById('orderDescription').value = '';
+                bankakReceipt.value = '';
+                
+                closePaymentModal();
+                closeCart();
+
+            } catch (err) {
+                alert("حدث خطأ أثناء الاتصال، يرجى المحاولة مرة أخرى.");
+            } finally {
+                confirmPaymentBtn.innerHTML = 'تأكيد الدفع وإنهاء الطلب <i class="fa-solid fa-check"></i>';
+                confirmPaymentBtn.disabled = false;
+            }
+        });
+    }
+
+    // Orders Modal Logic
+    const myOrdersNavBtn = document.getElementById('myOrdersNavBtn');
+    const myOrdersMobileBtn = document.getElementById('myOrdersMobileBtn');
+    const ordersModalOverlay = document.getElementById('ordersModalOverlay');
+    const ordersModal = document.getElementById('ordersModal');
+    const closeOrdersBtn = document.getElementById('closeOrdersBtn');
+    const ordersContainer = document.getElementById('ordersContainer');
+
+    function openOrdersModal() {
+        renderOrders();
+        ordersModalOverlay.classList.add('active');
+        ordersModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeOrdersModal() {
+        ordersModalOverlay.classList.remove('active');
+        ordersModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    if(myOrdersNavBtn) {
+        myOrdersNavBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openOrdersModal();
+        });
+    }
+    
+    if(myOrdersMobileBtn) {
+        myOrdersMobileBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Assuming closeMobileMenu exists globally (which it does via scoping in DOMContentLoaded)
+            document.getElementById('mobileMenu').classList.remove('active');
+            openOrdersModal();
+        });
+    }
+
+    if(closeOrdersBtn) closeOrdersBtn.addEventListener('click', closeOrdersModal);
+    if(ordersModalOverlay) ordersModalOverlay.addEventListener('click', closeOrdersModal);
+
+    function renderOrders() {
+        if(!ordersContainer) return;
+
+        let storedOrders = JSON.parse(localStorage.getItem('scoopOrders')) || [];
+        if (storedOrders.length === 0) {
+            ordersContainer.innerHTML = '<div class="empty-cart-msg" style="text-align:center; padding: 30px; color:#777;"><i class="fa-solid fa-box-open" style="font-size:3rem; margin-bottom:15px; color:#ccc; display:block;"></i> لا توجد طلبات سابقة.</div>';
+            return;
+        }
+
+        ordersContainer.innerHTML = '';
+        
+        // Render orders newest first
+        storedOrders.slice().reverse().forEach((order, index) => {
+            let d = new Date(order.date);
+            let dateStr = d.toLocaleDateString('ar-EG') + ' ' + d.toLocaleTimeString('ar-EG', {hour: '2-digit', minute:'2-digit'});
+            
+            let itemsHtml = '';
+            // Defensive check just in case legacy arrays exist
+            if(order.items && Array.isArray(order.items)) {
+                itemsHtml = order.items.map(i => `
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.95rem;">
+                        <span>${i.qty}x ${i.name}</span>
+                        <span>${i.price * i.qty} SD</span>
+                    </div>
+                `).join('');
+            } else {
+                itemsHtml = '<div style="color:#999; font-size:0.85rem;">تفاصيل الطلب غير متوفرة</div>';
+            }
+
+            ordersContainer.innerHTML += `
+                <div style="background:#fff; border:1px solid #e0e0e0; border-radius:12px; padding:20px; margin-bottom:15px; box-shadow:0 3px 10px rgba(0,0,0,0.02); position:relative; overflow:hidden;">
+                    
+                    <div style="position:absolute; top:0; right:0; width:5px; height:100%; background:var(--primary-color);"></div>
+                    
+                    <div style="display:flex; justify-content:space-between; margin-bottom:15px; border-bottom:1px dashed #eee; padding-bottom:12px; align-items:center;">
+                        <div>
+                            <span style="font-weight:900; color:var(--text-dark); display:block; font-size:1.1rem;">طلب #${storedOrders.length - index}</span>
+                            <span style="font-size:0.8rem; color:#888; background:#f5f5f5; padding:3px 8px; border-radius:12px; display:inline-block; margin-top:5px;">عبر ${order.method}</span>
+                        </div>
+                        <span style="color:#777; font-size:0.85rem; font-family:monospace; background:#fafafa; padding:5px 8px; border-radius:6px; border:1px solid #eee;">${dateStr}</span>
+                    </div>
+                    
+                    <div style="margin-bottom:15px; padding-right:12px;">
+                        ${itemsHtml}
+                    </div>
+                    
+                    <div style="display:flex; justify-content:space-between; font-weight:800; color:var(--text-dark); margin-top:15px; background:#fafafa; padding:12px 15px; border-radius:8px;">
+                        <span>الإجمالي المدفوع</span>
+                        <span style="color:var(--primary-color); font-size:1.1rem;">${order.total} SD</span>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+});
