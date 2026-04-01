@@ -329,8 +329,9 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`, '_blank');
         
         // Save to orders history
+        let orderId = Math.random().toString(36).substring(2, 9).toUpperCase(); // معرف فريد
         let orders = JSON.parse(localStorage.getItem('scoopOrders')) || [];
-        orders.push({ date: new Date().toISOString(), items: [...cart], total: total, method: 'واتساب' });
+        orders.push({ id: orderId, date: new Date().toISOString(), items: [...cart], total: total, method: 'واتساب' });
         localStorage.setItem('scoopOrders', JSON.stringify(orders));
 
         cart = [];
@@ -424,7 +425,8 @@ document.addEventListener('DOMContentLoaded', () => {
             confirmPaymentBtn.disabled = true;
 
             const { detailsText, total } = buildOrderDetails();
-            let finalDetails = detailsText + '\n' + paymentStr;
+            let orderId = Math.random().toString(36).substring(2, 9).toUpperCase(); // معرف فريد
+            let finalDetails = detailsText + '\n' + paymentStr + '\n#ID:' + orderId;
 
             try {
                 // إرسال الطلب بتنسيق نصي صريح لضمان استلامه في جوجل سكريبت بدون مشاكل CORS
@@ -445,7 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Save to orders history
                 let orders = JSON.parse(localStorage.getItem('scoopOrders')) || [];
-                orders.push({ date: new Date().toISOString(), items: [...cart], total: total, method: uiPaymentMethod });
+                orders.push({ id: orderId, date: new Date().toISOString(), items: [...cart], total: total, method: uiPaymentMethod });
                 localStorage.setItem('scoopOrders', JSON.stringify(orders));
 
                 // Clear state
@@ -526,7 +528,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let dateStr = d.toLocaleDateString('ar-EG') + ' ' + d.toLocaleTimeString('ar-EG', {hour: '2-digit', minute:'2-digit'});
             
             let itemsHtml = '';
-            // Defensive check just in case legacy arrays exist
             if(order.items && Array.isArray(order.items)) {
                 itemsHtml = order.items.map(i => `
                     <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.95rem;">
@@ -538,17 +539,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 itemsHtml = '<div style="color:#999; font-size:0.85rem;">تفاصيل الطلب غير متوفرة</div>';
             }
 
+            let statusBadge = '';
+            if (order.method === 'واتساب') {
+                statusBadge = '<span style="color:#25D366; background:#e8fdf0; padding:4px 10px; border-radius:12px; font-size:0.85rem;"><i class="fa-brands fa-whatsapp"></i> تواصل بالواتساب</span>';
+            } else {
+                statusBadge = `<span id="statusBadge-${order.id}" style="color:#666; background:#f0f0f0; padding:4px 10px; border-radius:12px; font-size:0.85rem;"><i class="fa-solid fa-spinner fa-spin"></i> تحديث...</span>`;
+            }
+
             ordersContainer.innerHTML += `
                 <div style="background:#fff; border:1px solid #e0e0e0; border-radius:12px; padding:20px; margin-bottom:15px; box-shadow:0 3px 10px rgba(0,0,0,0.02); position:relative; overflow:hidden;">
-                    
                     <div style="position:absolute; top:0; right:0; width:5px; height:100%; background:var(--primary-color);"></div>
-                    
-                    <div style="display:flex; justify-content:space-between; margin-bottom:15px; border-bottom:1px dashed #eee; padding-bottom:12px; align-items:center;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:15px; border-bottom:1px dashed #eee; padding-bottom:12px; align-items:flex-start;">
                         <div>
                             <span style="font-weight:900; color:var(--text-dark); display:block; font-size:1.1rem;">طلب #${storedOrders.length - index}</span>
-                            <span style="font-size:0.8rem; color:#888; background:#f5f5f5; padding:3px 8px; border-radius:12px; display:inline-block; margin-top:5px;">عبر ${order.method}</span>
+                            <span style="font-size:0.8rem; color:#888; display:block; margin-top:5px;">كود الطلب: ${order.id || 'غير متوفر'}</span>
                         </div>
-                        <span style="color:#777; font-size:0.85rem; font-family:monospace; background:#fafafa; padding:5px 8px; border-radius:6px; border:1px solid #eee;">${dateStr}</span>
+                        <div style="text-align:left;">
+                            <span style="color:#777; font-size:0.85rem; font-family:monospace; display:block; margin-bottom:8px">${dateStr}</span>
+                            ${statusBadge}
+                        </div>
                     </div>
                     
                     <div style="margin-bottom:15px; padding-right:12px;">
@@ -562,6 +571,47 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
         });
+
+        // Fetch live statuses for website orders
+        if (storedOrders.some(o => o.method !== 'واتساب' && o.id)) {
+            fetchLiveOrderStatuses();
+        }
+    }
+
+    async function fetchLiveOrderStatuses() {
+        try {
+            const adminUrl = "https://script.google.com/macros/s/AKfycbzsurRcynQazy4J_UWFrNOqeJKIEfJoVZ2U0l-Wo5s-x1R-ltg1FVuaPagSSpDMWGjuyA/exec";
+            let res = await fetch(adminUrl + "?v=" + Date.now());
+            let cloudOrders = await res.json();
+
+            let storedOrders = JSON.parse(localStorage.getItem('scoopOrders')) || [];
+            storedOrders.forEach(order => {
+                if (order.method !== 'واتساب' && order.id) {
+                    let matchingCloudRow = cloudOrders.find(co => co.Product && co.Product.includes('#ID:' + order.id));
+                    let badgeEl = document.getElementById(`statusBadge-${order.id}`);
+                    if (matchingCloudRow && badgeEl) {
+                        let status = matchingCloudRow.Date || matchingCloudRow['الحالة'] || 'جديد';
+                        let badgeColor = '#666'; let badgeBg = '#f0f0f0'; let icon = 'fa-clock';
+                        if(status.includes('جديد')) { badgeColor = '#d32f2f'; badgeBg = '#ffebee'; }
+                        else if(status.includes('التحضير')) { badgeColor = '#f57f17'; badgeBg = '#fff9c4'; icon = 'fa-fire-burner'; }
+                        else if(status.includes('مكتمل')) { badgeColor = '#388e3c'; badgeBg = '#e8f5e9'; icon = 'fa-check-circle'; }
+                        else if(status.includes('ملغي')) { badgeColor = '#7f8c8d'; badgeBg = '#ecf0f1'; icon = 'fa-xmark'; }
+                        else { badgeColor = '#d32f2f'; badgeBg = '#ffebee'; }
+                        
+                        badgeEl.innerHTML = `<i class="fa-solid ${icon}"></i> ${status}`;
+                        badgeEl.style.color = badgeColor;
+                        badgeEl.style.background = badgeBg;
+                    } else if (badgeEl) {
+                        badgeEl.innerHTML = `<i class="fa-solid fa-clock"></i> قيد المراجعة`;
+                    }
+                }
+            });
+        } catch(e) {
+            console.error("فشل في مزامنة حالة الطلبات", e);
+            document.querySelectorAll('[id^="statusBadge-"]').forEach(el => {
+                el.innerHTML = "تعذر الاتصال بالخادم";
+            });
+        }
     }
 
 });
