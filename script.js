@@ -590,7 +590,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     let matchingCloudRow = cloudOrders.find(co => co.Product && co.Product.includes('#ID:' + order.id));
                     let badgeEl = document.getElementById(`statusBadge-${order.id}`);
                     if (matchingCloudRow && badgeEl) {
-                        let status = matchingCloudRow.Date || matchingCloudRow['الحالة'] || 'جديد';
+                        let status = matchingCloudRow['الحالة'] || matchingCloudRow.status || matchingCloudRow.Status || 'جديد';
                         let badgeColor = '#666'; let badgeBg = '#f0f0f0'; let icon = 'fa-clock';
                         if(status.includes('جديد')) { badgeColor = '#d32f2f'; badgeBg = '#ffebee'; }
                         else if(status.includes('التحضير')) { badgeColor = '#f57f17'; badgeBg = '#fff9c4'; icon = 'fa-fire-burner'; }
