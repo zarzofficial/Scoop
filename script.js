@@ -395,6 +395,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
+            // تحديث إجمالي المبلغ المطلوب بنكك
+            const { total } = buildOrderDetails();
+            const totalDisplay = document.getElementById('bankakTotalAmountDisplay');
+            if(totalDisplay) {
+                totalDisplay.innerText = total.toLocaleString() + ' SD';
+            }
+
             // Validate success, proceed to payment
             openPaymentModal();
         });

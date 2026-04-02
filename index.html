@@ -704,14 +704,14 @@
 
     <!-- Payment Modal -->
     <div class="modal-overlay" id="paymentModalOverlay"></div>
-    <div class="extras-modal" id="paymentModal" style="max-width: 500px; width: 90%; max-height: 90vh;">
-        <div class="modal-header">
+    <div class="extras-modal" id="paymentModal" style="max-width: 500px; width: 90%; max-height: 85vh; display: flex; flex-direction: column;">
+        <div class="modal-header" style="flex-shrink: 0;">
             <h3 style="margin:0;font-size:1.3rem;color:var(--text-dark);"><i
                     class="fa-solid fa-credit-card text-primary"></i> طريقة الدفع</h3>
             <button class="close-modal" id="closePaymentBtn"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="modal-body"
-            style="padding: 20px; background: #fafafa; display: flex; flex-direction: column; gap: 15px;">
+            style="overflow-y: auto; flex-grow: 1; padding: 20px; background: #fafafa; display: flex; flex-direction: column; gap: 15px;">
             <div style="font-weight: bold; margin-bottom: 5px;">اختر طريقة الدفع المناسبة:</div>
 
             <label
@@ -734,6 +734,12 @@
 
             <div id="bankakDetails"
                 style="display: none; background: #e3f2fd; padding: 20px; border-radius: 10px; border: 1px solid #90caf9; margin-top: 5px;">
+                <div style="font-size: 0.95rem; line-height: 1.8; margin-bottom: 12px; text-align: center;">
+                    يرجى تحويل القيمة الإجمالية للطلب:
+                    <div style="margin: 8px 0;">
+                        <span id="bankakTotalAmountDisplay" style="font-size:1.4rem; font-weight:900; color:#1565c0; background:#fff; padding:8px 20px; border-radius:8px; border: 2px dashed #64b5f6; display:inline-block;">0 SD</span>
+                    </div>
+                </div>
                 <div style="font-size: 0.95rem; line-height: 1.8;">
                     <strong>الاسم:</strong> Mohamed Ali<br>
                     <strong>رقم الحساب:</strong> <span
