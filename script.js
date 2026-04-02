@@ -430,7 +430,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 // إرسال الطلب بتنسيق نصي صريح لضمان استلامه في جوجل سكريبت بدون مشاكل CORS
-                await fetch("https://script.google.com/macros/s/AKfycbzx3J2Wct7OCXSWM0ZGo0GlgmPs0ZaUncCTuzq9CFNsp6eoVMToqMiRlR6iBkGyb7Qo/exec", {
+                await fetch("https://script.google.com/macros/s/AKfycbxrH0K0AeCFxEN00ALn35plGZhfjInvPdpyynqcSaJbkh41WqTryoESihq-KPy3eE7tNw/exec", {
                     method: "POST",
                     mode: 'no-cors',
                     headers: {
@@ -580,7 +580,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchLiveOrderStatuses() {
         try {
-            const adminUrl = "https://script.google.com/macros/s/AKfycbzsurRcynQazy4J_UWFrNOqeJKIEfJoVZ2U0l-Wo5s-x1R-ltg1FVuaPagSSpDMWGjuyA/exec";
+            const adminUrl = "https://script.google.com/macros/s/AKfycbxrH0K0AeCFxEN00ALn35plGZhfjInvPdpyynqcSaJbkh41WqTryoESihq-KPy3eE7tNw/exec";
             let res = await fetch(adminUrl + "?v=" + Date.now());
             let cloudOrders = await res.json();
 
