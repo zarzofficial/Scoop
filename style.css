@@ -263,3 +263,7 @@ h1, h2, h3, h4 { font-family: var(--font-ar); font-weight: 800; color: var(--tex
     .mobile-menu-btn { display: block; }
     .section-title { font-size: 2.5rem; }
 }
+
+/* Higher z-index for Modals to ensure they appear above cart sidebar */
+.modal-overlay { z-index: 9998 !important; }
+.extras-modal { z-index: 9999 !important; }
